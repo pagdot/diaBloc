@@ -96,6 +96,14 @@ function createNet(net: Blocks.Net, nodes: Blocks.Block[]) : SVGElement[] {
    let start : Blocks.Position;
    let end : Blocks.Position;
 
+   if (!node_start) {
+      throw "Can't find node \"" + net.start.node + "\""
+   }
+
+   if (!node_end) {
+      throw "Can't find node \"" + net.end.node + "\""
+   }
+
    if (net.start.classType == Blocks.ClassType.AnglePortPosition) {
       start = calcAngleOffset(node_start, (net.start as Blocks.AnglePortPosition).angle);
    } else if (net.start.classType == Blocks.ClassType.OffsetPortPosition) {
