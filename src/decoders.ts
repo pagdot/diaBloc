@@ -98,7 +98,7 @@ export function decodePortPosition(p : string | object) : PortPosition {
                return new OffsetPortPosition(
                   getProperty(p, "node"),
                   decodeEdge(getProperty(p, "edge")),
-                  checkProperty(p, "offset") ? decodeOffset(getProperty(p, "edge")) : new Offset()
+                  checkProperty(p, "offset") ? decodeOffset(getProperty(p, "offset")) : new Offset()
                );
             } else if (checkProperty(p, "angle")) {
                return new AnglePortPosition(
