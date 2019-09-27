@@ -1,0 +1,68 @@
+<!doctype html>
+
+<head>
+  <title>CodeMirror: HTML5 preview</title>
+  <meta charset="UTF-8">
+
+  <script src="main.js"></script>
+  <style type=text/css>
+    html {
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+      height: calc(100vh - 0.4em);
+      width: calc(100% - 0.1em);
+    }
+
+    .box {
+      margin: 0;
+      padding: 0;
+      height: 90%;
+      width: 100%;
+    }
+    .left {
+      padding: 0;
+      margin: 0;
+      float: left;
+      width: 50%;
+      height: 100%;
+    }
+    .right {
+      padding: 0;
+      margin: 0;
+      float: right;
+      width: 50%;
+      height: 100%;
+    }
+    .CodeMirror {
+      width: 100%;
+      height: 100%;
+      border: 1px solid black;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: scroll;
+      border: 1px solid black;
+      border-left: 0px;
+    }
+    #errorlog {
+      margin: 1em
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="left">
+      <textarea id=code name=code></textarea>
+    </div>
+    <div class="right">
+      <svg id=preview></svg>
+    </div>
+  </div>
+  <div id="errorlog"></div>
+</body>

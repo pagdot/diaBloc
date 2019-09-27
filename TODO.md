@@ -1,0 +1,38 @@
+# TODO
+
+- [ ] Nets can connect to ports
+- [ ] Include files and split project across multiple files
+- [ ] Template support for nodes and connections
+  - [ ] Support for custom properties in templates
+  - [ ] Allow calculations based on other properties
+- [ ] Nodes can have ports for easier connections
+  - [ ] Multiple description fields
+    - [ ] Positioning similar to net positioning at nodes
+  - [ ] Positioning similar to net positioning
+- [ ] Allow content in nodes
+  - [ ] Split node in multiple cells (using tables)
+  - [ ] Allow to nest content cells
+  - [ ] Positioning/Layout modes
+    - [ ] Tables
+    - [ ] Relative to node/parent cell
+  - [ ] Styling: border, background color
+  - [ ] Text content
+  - [ ] embedd external images (local/web)
+- [ ] Format text with Markdown
+- [ ] Nested nodes
+- [ ] More node shapes:
+  - [ ] None (Connect multiple connections)
+  - [ ] Point (Same, but with visible connection point)
+  - [ ] Circle
+- [ ] Symbols on start/end of net (e.g. multiple kinds of arrows, point)
+- [ ] Style support:
+  - [ ] dotted/dashed lines, borders
+  - [ ] line/border thickness
+  - [ ] rounded edges of border
+  - [ ] font size, color, ...
+- [ ] UML support
+- [ ] Export (svg, png, pdf)
+  - [ ] LaTex/Tikz export
+  - [ ] Creation of class declarations (C++, Java, ...) based on UML
+- [ ] Custom JSON parser for better error messages
+- [ ] Electron based application
