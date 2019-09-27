@@ -10,25 +10,17 @@ import * as Decoders from './decoders';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/fold/foldgutter.css';
 import * as example from './example.diaBloc';
-import { networkInterfaces } from 'os';
 
 let editor : CodeMirror.Editor;
 
-function getEdgePosition(node: Blocks.Block, edge : Blocks.Edge, offset? : Blocks.Offset | number) : Blocks.Position {
-   if (typeof offset == "number") {
-      let _offset : Blocks.Offset;
-      _offset.type = Blocks.OffsetType.Absolut;
-      _offset.value = offset;
-      return getEdgePosition(node, edge, _offset);
-   }
-
+function getEdgePosition(node: Blocks.Block, edge : Blocks.Edge, offset : Blocks.Offset = new Blocks.Offset) : Blocks.Position {
    let pos : Blocks.Position = {
       x: node.x + node.w/2,
       y: node.y + node.h/2
    };
 
    if (edge == Blocks.Edge.East) {
-      pos.x = node.x;
+      pos.x = node.x + node.w;
       pos.y += offset.get(node.h/2);
    } else if (edge == Blocks.Edge.West) {
       pos.x = node.x;
@@ -46,15 +38,16 @@ function getEdgePosition(node: Blocks.Block, edge : Blocks.Edge, offset? : Block
 }
 
 function calcAngleOffset(node : Blocks.Block, angle : number) : Blocks.Position {
-   let yoffset : number      = node.w/2 * Math.tan(angle);
-   let yedge   : Blocks.Edge = Math.cos(angle) > 0 ? Blocks.Edge.East : Blocks.Edge.West;
-   let xoffset : number      = node.h/2 * Math.tan(90-angle);
-   let xedge   : Blocks.Edge = Math.sin(angle) > 0 ? Blocks.Edge.North : Blocks.Edge.South;
+   let rad = angle * Math.PI / 180;
+   let yoffset : number      = node.w/2 * Math.tan(rad);
+   let yedge   : Blocks.Edge = Math.cos(rad) > 0 ? Blocks.Edge.East : Blocks.Edge.West;
+   let xoffset : number      = node.h/2 * Math.tan(Math.PI/2-rad);
+   let xedge   : Blocks.Edge = Math.sin(rad) > 0 ? Blocks.Edge.North : Blocks.Edge.South;
 
    if (Math.abs(yoffset) < node.h/2) {
-      return getEdgePosition(node, yedge, yoffset);
+      return getEdgePosition(node, yedge, new Blocks.Offset(yedge === Blocks.Edge.East ? -yoffset : yoffset));
    } else {
-      return getEdgePosition(node, xedge, xoffset);
+      return getEdgePosition(node, xedge, new Blocks.Offset(xedge === Blocks.Edge.South ? -xoffset : xoffset));
    }
 }
 
@@ -170,7 +163,7 @@ function createNet(net: Blocks.Net, nodes: Blocks.Block[]) : SVGElement[] {
          pos = nextPos;
       }
 
-      if (pos.x !== end.x || pos.y !== end.y) {
+      if (Math.abs(pos.x - end.x) > 0.1 || Math.abs(pos.y - end.y) > 0.1) {
          throw "Can't reach end position! Current Pos: " + pos.x + "," + pos.y + " End Pos: " + end.x + "," + end.y;
       }
    } else {
